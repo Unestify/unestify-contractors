@@ -13,6 +13,18 @@ Parameters:
     Type: String
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
     Default: ''
+  SecretArn:
+    Type: String
+    Default: 'arn:aws:secretsmanager:us-east-2:316608166692:secret:nest-d0jhM5'
+  ResourceArn:
+    Type: String
+    Default: 'arn:aws:rds:us-east-2:316608166692:cluster:nest'
+  DatabaseName:
+    Type: String
+    Default: 'nest'
+  Schema:
+    Type: String
+    Default: 'public'
 
 Globals:
   Function:
@@ -23,6 +35,9 @@ Globals:
       Role: !Ref CodeDeployRole
 
 Resources:
+  # ==============================
+  # Hello World Fxn (example)
+  # ==============================
   HelloWorld:
     Type: AWS::Serverless::Function
     Properties:
@@ -59,4 +74,225 @@ Resources:
       Path: /
       ManagedPolicyArns:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+      PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
+
+  # ======================================================
+  #  ____            _                  _
+  # / ___|___  _ __ | |_ _ __ __ _  ___| |_ ___  _ __ ___
+  #| |   / _ \| '_ \| __| '__/ _` |/ __| __/ _ \| '__/ __|
+  #| |__| (_) | | | | |_| | | (_| | (__| || (_) | |  \__ \
+  # \____\___/|_| |_|\__|_|  \__,_|\___|\__\___/|_|  |___/
+  # ======================================================
+  # Get All Contractors
+  # ======================================================
+  GetContractorsAll:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get_contractors.handler
+      CodeUri: ./lambda_funcs
+      Runtime: python3.7
+      Layers:
+        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
+      Environment:
+        Variables:
+          DATABASE_SECRET_ARN: !Ref SecretArn
+          DATABASE_ARN: !Ref ResourceArn
+          DATABASE_NAME: !Ref DatabaseName
+          SCHEMA: !Ref Schema
+      Role:
+        !GetAtt GetContractorsAllExecutionRole.Arn
+      Events:
+        GetContractorsAll:
+          Type: Api
+          Properties:
+            Path: /contractors
+            Method: get
+  GetContractorsAllExecutionRole:
+    Description: Creating service role in IAM for AWS Lambda
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'CodeStar-${ProjectId}-GetContractorsAllExecution'
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [lambda.amazonaws.com]
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-GetAndDecryptSecret
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-RDSDataAPI
+      PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
+
+  # ==============================
+  # Get One Contractor
+  # ==============================
+  GetContractorsID:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: get_contractors_id.handler
+      CodeUri: ./lambda_funcs
+      Runtime: python3.7
+      Layers:
+        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
+      Environment:
+        Variables:
+          DATABASE_SECRET_ARN: !Ref SecretArn
+          DATABASE_ARN: !Ref ResourceArn
+          DATABASE_NAME: !Ref DatabaseName
+          SCHEMA: !Ref Schema
+      Role:
+        !GetAtt GetContractorsIDExecutionRole.Arn
+      Events:
+        GetContractorsID:
+          Type: Api
+          Properties:
+            Path: /contractors/{id}
+            Method: get
+  GetContractorsIDExecutionRole:
+    Description: Creating service role in IAM for AWS Lambda
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'CodeStar-${ProjectId}-GetContractorsIDExecution'
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [lambda.amazonaws.com]
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-GetAndDecryptSecret
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-RDSDataAPI
+      PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
+
+  # ==============================
+  # Create One Contractor
+  # ==============================
+  PostContractors:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: post_contractors.handler
+      CodeUri: ./lambda_funcs
+      Runtime: python3.7
+      Layers:
+        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
+      Environment:
+        Variables:
+          DATABASE_SECRET_ARN: !Ref SecretArn
+          DATABASE_ARN: !Ref ResourceArn
+          DATABASE_NAME: !Ref DatabaseName
+          SCHEMA: !Ref Schema
+      Role:
+        !GetAtt PostContractorsExecutionRole.Arn
+      Events:
+        PostContractors:
+          Type: Api
+          Properties:
+            Path: /contractors
+            Method: post
+  PostContractorsExecutionRole:
+    Description: Creating service role in IAM for AWS Lambda
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'CodeStar-${ProjectId}-PostContractorsExecution'
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [lambda.amazonaws.com]
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-GetAndDecryptSecret
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-RDSDataAPI
+      PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
+
+  # ==============================
+  # PUT (Update) One Contractor
+  # ==============================
+  PutContractorsID:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: put_contractors_id.handler
+      CodeUri: ./lambda_funcs
+      Runtime: python3.7
+      Layers:
+        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
+      Environment:
+        Variables:
+          DATABASE_SECRET_ARN: !Ref SecretArn
+          DATABASE_ARN: !Ref ResourceArn
+          DATABASE_NAME: !Ref DatabaseName
+          SCHEMA: !Ref Schema
+      Role:
+        !GetAtt PutContractorsExecutionRole.Arn
+      Events:
+        PostContractors:
+          Type: Api
+          Properties:
+            Path: /contractors/{id}
+            Method: put
+  PutContractorsExecutionRole:
+    Description: Creating service role in IAM for AWS Lambda
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'CodeStar-${ProjectId}-PutContractorsExecution'
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [lambda.amazonaws.com]
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-GetAndDecryptSecret
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-RDSDataAPI
+      PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
+
+  # ==============================
+  # Delete One Contractor
+  # ==============================
+  DeleteContractors:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: delete_contractors_id.handler
+      CodeUri: ./lambda_funcs
+      Runtime: python3.7
+      Layers:
+        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
+      Environment:
+        Variables:
+          DATABASE_SECRET_ARN: !Ref SecretArn
+          DATABASE_ARN: !Ref ResourceArn
+          DATABASE_NAME: !Ref DatabaseName
+          SCHEMA: !Ref Schema
+      Role:
+        !GetAtt DeleteContractorsExecutionRole.Arn
+      Events:
+        PostContractors:
+          Type: Api
+          Properties:
+            Path: /contractors/{id}
+            Method: delete
+  DeleteContractorsExecutionRole:
+    Description: Creating service role in IAM for AWS Lambda
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub 'CodeStar-${ProjectId}-DeleteContractorsExecution'
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [lambda.amazonaws.com]
+            Action: sts:AssumeRole
+      Path: /
+      ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-GetAndDecryptSecret
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-RDSDataAPI
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
