@@ -65,7 +65,7 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${ProjectId}-Execution'
+      RoleName: !Sub 'CodeStar-${ProjectId}-HelloWorld-Execution'
       AssumeRolePolicyDocument:
         Statement:
         - Effect: Allow
@@ -112,7 +112,7 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${ProjectId}-GetContractorsAllExecution'
+      RoleName: !Sub 'CodeStar-${ProjectId}-GetContractorsAll-Execution'
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
@@ -156,7 +156,7 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${ProjectId}-GetContractorsIDExecution'
+      RoleName: !Sub 'CodeStar-${ProjectId}-GetContractorsID-Execution'
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
@@ -200,7 +200,7 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${ProjectId}-PostContractorsExecution'
+      RoleName: !Sub 'CodeStar-${ProjectId}-PostContractors-Execution'
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
@@ -244,7 +244,7 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${ProjectId}-PutContractorsExecution'
+      RoleName: !Sub 'CodeStar-${ProjectId}-PutContractors-Execution'
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
@@ -288,7 +288,7 @@ Resources:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub 'CodeStar-${ProjectId}-DeleteContractorsExecution'
+      RoleName: !Sub 'CodeStar-${ProjectId}-DeleteContractors-Execution'
       AssumeRolePolicyDocument:
         Statement:
           - Effect: Allow
