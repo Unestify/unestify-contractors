@@ -123,6 +123,7 @@ Resources:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
         - arn:aws:iam::316608166692:policy/Manual-Unestify-GetAndDecryptSecret
         - arn:aws:iam::316608166692:policy/Manual-Unestify-RDSDataAPI
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-LambdaGetLayerVersion
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
 
   # ==============================
@@ -166,6 +167,7 @@ Resources:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
         - arn:aws:iam::316608166692:policy/Manual-Unestify-GetAndDecryptSecret
         - arn:aws:iam::316608166692:policy/Manual-Unestify-RDSDataAPI
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-LambdaGetLayerVersion
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
 
   # ==============================
@@ -209,6 +211,7 @@ Resources:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
         - arn:aws:iam::316608166692:policy/Manual-Unestify-GetAndDecryptSecret
         - arn:aws:iam::316608166692:policy/Manual-Unestify-RDSDataAPI
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-LambdaGetLayerVersion
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
 
   # ==============================
@@ -252,6 +255,7 @@ Resources:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
         - arn:aws:iam::316608166692:policy/Manual-Unestify-GetAndDecryptSecret
         - arn:aws:iam::316608166692:policy/Manual-Unestify-RDSDataAPI
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-LambdaGetLayerVersion
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
 
   # ==============================
@@ -295,4 +299,5 @@ Resources:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
         - arn:aws:iam::316608166692:policy/Manual-Unestify-GetAndDecryptSecret
         - arn:aws:iam::316608166692:policy/Manual-Unestify-RDSDataAPI
+        - arn:aws:iam::316608166692:policy/Manual-Unestify-LambdaGetLayerVersion
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
