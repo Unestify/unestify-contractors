@@ -27,6 +27,7 @@ Resources:
   HelloWorld:
     Type: AWS::Serverless::Function
     Properties:
+      CodeUri: ./lambda_funcs
       FunctionName: !Sub 'awscodestar-${ProjectId}-lambda-HelloWorld'
       Handler: index.handler
       Runtime: python3.7

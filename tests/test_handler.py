@@ -1,5 +1,5 @@
 import unittest
-import index
+from lambda_funcs import index
 
 
 class TestHandlerCase(unittest.TestCase):
