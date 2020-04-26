@@ -1,4 +1,9 @@
 
+"""
+An API for accessing contractor
+
+"""
+
 import os
 import json
 import boto3
@@ -112,26 +117,26 @@ def handler(event, context) -> Dict[str, Any]:
 
     serialization = serialize_response('contractors', response)
 
-    # Array values cannot be passed to database via Data API, so trades are filtered outside of database
-    if event['multiValueQueryStringParameters'] and event['multiValueQueryStringParameters'].get('trades'):
-        # Extract list of trades from query string parameters
-        trade_filter_list = event['multiValueQueryStringParameters'].get('trades')
-
-        contractors_filtered = []
-        # Iterate over all contractors returned by query: check to make sure all trades are in contractor record
-        for contractor in serialization:
-            # If contractor "trades_string" object includes all trades passed in query parameters, add it to output
-            if all([trade in contractor.get('trades_string') for trade in trade_filter_list]):
-                contractors_filtered.append(contractor)
-    # If multiValueQueryStringParameters does not include
-    else:
-        contractors_filtered = serialization
+    # # Array values cannot be passed to database via Data API, so trades are filtered outside of database
+    # if event['multiValueQueryStringParameters'] and event['multiValueQueryStringParameters'].get('trades'):
+    #     # Extract list of trades from query string parameters
+    #     trade_filter_list = event['multiValueQueryStringParameters'].get('trades')
+    #
+    #     contractors_filtered = []
+    #     # Iterate over all contractors returned by query: check to make sure all trades are in contractor record
+    #     for contractor in serialization:
+    #         # If contractor "trades_string" object includes all trades passed in query parameters, add it to output
+    #         if all([trade in contractor.get('trades_string') for trade in trade_filter_list]):
+    #             contractors_filtered.append(contractor)
+    # # If multiValueQueryStringParameters does not include
+    # else:
+    #     contractors_filtered = serialization
 
     # Return filtered list of contractors
-    body = {'data': contractors_filtered}
+    body = {'data': serialization}
 
     return {
                 'statusCode': 200,
-                'body': json.dumps(body),
                 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                'body': json.dumps(body),
             }
