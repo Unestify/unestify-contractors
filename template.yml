@@ -96,7 +96,7 @@ Resources:
       CodeUri: ./lambda_funcs
       Runtime: python3.7
       Layers:
-        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
+        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse'
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -141,7 +141,7 @@ Resources:
       CodeUri: ./lambda_funcs
       Runtime: python3.7
       Layers:
-        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
+        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse'
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -186,7 +186,7 @@ Resources:
       CodeUri: ./lambda_funcs
       Runtime: python3.7
       Layers:
-        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
+        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse'
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -231,7 +231,7 @@ Resources:
       CodeUri: ./lambda_funcs
       Runtime: python3.7
       Layers:
-        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
+        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse'
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -276,7 +276,7 @@ Resources:
       CodeUri: ./lambda_funcs
       Runtime: python3.7
       Layers:
-        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
+        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse'
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn

@@ -3,8 +3,6 @@ import json
 import boto3
 from typing import Dict, Any
 
-from sqlutilities.parse_utilities import serialize_response
-
 # Initiate a RDS Data API client
 RDSClient = boto3.client('rds-data')
 

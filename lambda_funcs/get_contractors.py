@@ -10,7 +10,7 @@ import boto3
 from typing import Dict, Any
 
 # From Layers
-from sqlutilities.parse_utilities import serialize_response
+from lambda_layer_sqlutilities.parse_utilities import serialize_response
 
 
 

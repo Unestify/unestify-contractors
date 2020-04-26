@@ -3,7 +3,7 @@ import json
 import boto3
 from typing import Dict, Any
 
-from sqlutilities.parse_utilities import serialize_response
+from lambda_layer_sqlutilities.parse_utilities import serialize_response
 
 
 # Initiate a RDS Data API client
