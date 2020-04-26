@@ -15,11 +15,11 @@ from sqlutilities.parse_utilities import serialize_response
 
 
 # Initiate a RDS Data API client
-rds_client = boto3.client('rds-data')
+RDSClient = boto3.client('rds-data')
 
-resourceArn = os.environ['DATABASE_ARN']
-secretArn = os.environ['DATABASE_SECRET_ARN']
-database = os.environ['DATABASE_NAME']
+rds_resource_arn = os.environ['DATABASE_ARN']
+rds_secret_arn = os.environ['DATABASE_SECRET_ARN']
+database_name = os.environ['DATABASE_NAME']
 
 # This will eventually support all of our contractor search filters!
 sql = """
@@ -122,10 +122,10 @@ def handler(event, context) -> Dict[str, Any]:
     :return:
     """
 
-    response = rds_client.execute_statement(
-        resourceArn=resourceArn,
-        secretArn=secretArn,
-        database=database,
+    response = RDSClient.execute_statement(
+        resourceArn=rds_resource_arn,
+        secretArn=rds_secret_arn,
+        database=database_name,
         sql=sql,
         includeResultMetadata=True
     )

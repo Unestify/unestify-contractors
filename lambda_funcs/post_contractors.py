@@ -8,11 +8,11 @@ from sqlutilities.parse_utilities import serialize_response
 
 
 # Initiate a RDS Data API client
-rds_client = boto3.client('rds-data')
+RDSClient = boto3.client('rds-data')
 
-resourceArn = os.environ['DATABASE_ARN']
-secretArn = os.environ['DATABASE_SECRET_ARN']
-database = os.environ['DATABASE_NAME']
+rds_resource_arn = os.environ['DATABASE_ARN']
+rds_secret_arn = os.environ['DATABASE_SECRET_ARN']
+database_name = os.environ['DATABASE_NAME']
 schema = os.environ['SCHEMA']
 
 
@@ -247,10 +247,10 @@ def handler(event, context) -> Dict[str, Any]:
 
     try:
         print("attempting to execute statement")
-        response = rds_client.execute_statement(
-            resourceArn=resourceArn,
-            secretArn=secretArn,
-            database=database,
+        response = RDSClient.execute_statement(
+            resourceArn=rds_resource_arn,
+            secretArn=rds_secret_arn,
+            database=database_name,
             sql=sql,
             parameters=parameters,
             includeResultMetadata=True
