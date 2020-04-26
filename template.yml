@@ -29,6 +29,9 @@ Parameters:
   GMapsAPIKeySecretArn:
     Type: String
     Default: 'arn:aws:secretsmanager:us-east-2:316608166692:secret:gmaps_api_key-HDARJc'
+  SQLUtilityLayer:
+    Type: String
+    Default: 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:2'
 
 Globals:
   Function:
@@ -96,7 +99,7 @@ Resources:
       CodeUri: ./lambda_funcs
       Runtime: python3.7
       Layers:
-        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:2'
+        - !Ref SQLUtilityLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -141,7 +144,7 @@ Resources:
       CodeUri: ./lambda_funcs
       Runtime: python3.7
       Layers:
-        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:2'
+        - !Ref SQLUtilityLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -186,7 +189,7 @@ Resources:
       CodeUri: ./lambda_funcs
       Runtime: python3.7
       Layers:
-        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:2'
+        - !Ref SQLUtilityLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -231,7 +234,7 @@ Resources:
       CodeUri: ./lambda_funcs
       Runtime: python3.7
       Layers:
-        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:2'
+        - !Ref SQLUtilityLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -276,7 +279,7 @@ Resources:
       CodeUri: ./lambda_funcs
       Runtime: python3.7
       Layers:
-        - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:2'
+        - !Ref SQLUtilityLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn

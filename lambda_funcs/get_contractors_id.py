@@ -66,7 +66,6 @@ sql = """
             ELSE avg(contractor_ratings.on_time_rating)
         END                                         AS on_time_rating,
         count(contractor_ratings.on_time_rating)	AS on_time_rating_count,
-        string_agg(DISTINCT(trades.name), ', ')     AS trades_string
         
         string_agg(DISTINCT(trades.name), ', ')     AS trades_string
         
