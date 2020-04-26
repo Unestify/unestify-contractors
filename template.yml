@@ -32,6 +32,9 @@ Parameters:
   SQLUtilityLayer:
     Type: String
     Default: 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:2'
+  GetSecretLayer:
+    Type: String
+    Default: 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-GetSecrets:1'
 
 Globals:
   Function:
@@ -100,6 +103,7 @@ Resources:
       Runtime: python3.7
       Layers:
         - !Ref SQLUtilityLayer
+        - !Ref GetSecretLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -145,6 +149,7 @@ Resources:
       Runtime: python3.7
       Layers:
         - !Ref SQLUtilityLayer
+        - !Ref GetSecretLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -190,6 +195,7 @@ Resources:
       Runtime: python3.7
       Layers:
         - !Ref SQLUtilityLayer
+        - !Ref GetSecretLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -235,6 +241,7 @@ Resources:
       Runtime: python3.7
       Layers:
         - !Ref SQLUtilityLayer
+        - !Ref GetSecretLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
@@ -280,6 +287,7 @@ Resources:
       Runtime: python3.7
       Layers:
         - !Ref SQLUtilityLayer
+        - !Ref GetSecretLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn

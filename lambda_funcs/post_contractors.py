@@ -4,6 +4,8 @@ import json
 import boto3
 from typing import Dict, Any
 
+from lambda_layer_get_secrets.get_aws_secrets import get_secret
+
 
 # Initiate a RDS Data API client
 RDSClient = boto3.client('rds-data')
