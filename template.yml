@@ -14,10 +14,10 @@ Parameters:
     Type: String
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
     Default: ''
-  SecretArn:
+  RDSSecretArn:
     Type: String
     Default: 'arn:aws:secretsmanager:us-east-2:316608166692:secret:nest-d0jhM5'
-  ResourceArn:
+  RDSResourceArn:
     Type: String
     Default: 'arn:aws:rds:us-east-2:316608166692:cluster:nest'
   DatabaseName:
@@ -26,6 +26,9 @@ Parameters:
   Schema:
     Type: String
     Default: 'public'
+  GMapsAPIKeySecretArn:
+    Type: String
+    Default: 'arn:aws:secretsmanager:us-east-2:316608166692:secret:gmaps_api_key-HDARJc'
 
 Globals:
   Function:
@@ -96,10 +99,11 @@ Resources:
         - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
       Environment:
         Variables:
-          DATABASE_SECRET_ARN: !Ref SecretArn
-          DATABASE_ARN: !Ref ResourceArn
+          DATABASE_SECRET_ARN: !Ref RDSSecretArn
+          DATABASE_ARN: !Ref RDSResourceArn
           DATABASE_NAME: !Ref DatabaseName
           SCHEMA: !Ref Schema
+          MAPS_API_KEY: !Ref GMapsAPIKeySecretArn
       Role:
         !GetAtt GetContractorsAllExecutionRole.Arn
       Events:
@@ -140,10 +144,11 @@ Resources:
         - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
       Environment:
         Variables:
-          DATABASE_SECRET_ARN: !Ref SecretArn
-          DATABASE_ARN: !Ref ResourceArn
+          DATABASE_SECRET_ARN: !Ref RDSSecretArn
+          DATABASE_ARN: !Ref RDSResourceArn
           DATABASE_NAME: !Ref DatabaseName
           SCHEMA: !Ref Schema
+          MAPS_API_KEY: !Ref GMapsAPIKeySecretArn
       Role:
         !GetAtt GetContractorsIDExecutionRole.Arn
       Events:
@@ -184,10 +189,11 @@ Resources:
         - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
       Environment:
         Variables:
-          DATABASE_SECRET_ARN: !Ref SecretArn
-          DATABASE_ARN: !Ref ResourceArn
+          DATABASE_SECRET_ARN: !Ref RDSSecretArn
+          DATABASE_ARN: !Ref RDSResourceArn
           DATABASE_NAME: !Ref DatabaseName
           SCHEMA: !Ref Schema
+          MAPS_API_KEY: !Ref GMapsAPIKeySecretArn
       Role:
         !GetAtt PostContractorsExecutionRole.Arn
       Events:
@@ -228,10 +234,11 @@ Resources:
         - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
       Environment:
         Variables:
-          DATABASE_SECRET_ARN: !Ref SecretArn
-          DATABASE_ARN: !Ref ResourceArn
+          DATABASE_SECRET_ARN: !Ref RDSSecretArn
+          DATABASE_ARN: !Ref RDSResourceArn
           DATABASE_NAME: !Ref DatabaseName
           SCHEMA: !Ref Schema
+          MAPS_API_KEY: !Ref GMapsAPIKeySecretArn
       Role:
         !GetAtt PutContractorsExecutionRole.Arn
       Events:
@@ -272,10 +279,11 @@ Resources:
         - 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:1'
       Environment:
         Variables:
-          DATABASE_SECRET_ARN: !Ref SecretArn
-          DATABASE_ARN: !Ref ResourceArn
+          DATABASE_SECRET_ARN: !Ref RDSSecretArn
+          DATABASE_ARN: !Ref RDSResourceArn
           DATABASE_NAME: !Ref DatabaseName
           SCHEMA: !Ref Schema
+          MAPS_API_KEY: !Ref GMapsAPIKeySecretArn
       Role:
         !GetAtt DeleteContractorsExecutionRole.Arn
       Events:
