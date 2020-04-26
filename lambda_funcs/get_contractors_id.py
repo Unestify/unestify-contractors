@@ -46,12 +46,27 @@ sql = """
         contractors.workers_comp_flag               AS workers_comp_flag,
         contractors.licensing_flag                  AS licensing_flag,
         
-        avg(contractor_ratings.value_rating)		AS value_rating,
+        -- When 0 value_ratings have been submitted, return rating of 0, not TRUE
+        CASE 
+            WHEN count(contractor_ratings.value_rating) = 0 THEN 0
+            ELSE avg(contractor_ratings.value_rating)
+        END                                         AS value_rating,
         count(contractor_ratings.value_rating)		AS value_rating_count,
-        avg(contractor_ratings.on_budget_rating)	AS on_budget_rating,
+        
+        -- When 0 on_budget_ratings have been submitted, return rating of 0, not TRUE
+        CASE 
+            WHEN count(contractor_ratings.on_budget_rating) = 0 THEN 0
+            ELSE avg(contractor_ratings.on_budget_rating)
+        END                                         AS on_budget_rating,
         count(contractor_ratings.on_budget_rating)	AS on_budget_rating_count,
-        avg(contractor_ratings.on_time_rating)		AS on_time_rating,
+        
+        -- When 0 on_time_ratings have been submitted, return rating of 0, not TRUE
+        CASE 
+            WHEN count(contractor_ratings.on_time_rating) = 0 THEN 0
+            ELSE avg(contractor_ratings.on_time_rating)
+        END                                         AS on_time_rating,
         count(contractor_ratings.on_time_rating)	AS on_time_rating_count,
+        string_agg(DISTINCT(trades.name), ', ')     AS trades_string
         
         string_agg(DISTINCT(trades.name), ', ')     AS trades_string
         
