@@ -166,7 +166,7 @@ def handler(event, context) -> Dict[str, Any]:
     lng_dict = {"doubleValue": float(lng)}
     lng_param = {"name": "lat", "value": lng_dict}
 
-    parameters = [lat_dict, lng_dict]
+    parameters = [lat_param, lng_param]
 
 
     response = RDSClient.execute_statement(
