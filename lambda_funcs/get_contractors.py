@@ -141,20 +141,30 @@ def handler(event, context) -> Dict[str, Any]:
     gmaps = googlemaps.client.Client(key=api_key)
 
     # Geocoding an address
-    geocode_result = gmaps.geocode(locale)
 
-    latlon_dict = geocode_result[0].get('geometry').get('location')
-    lat = latlon_dict.get('lat')
-    lng = latlon_dict.get('lng')
+    geocode_result = gmaps.geocode(locale)
 
     print(lat)
     print(lng)
+
+    latlon_dict = geocode_result[0].get('geometry').get('location')
+    lat = latlon_dict.get('lat')
+    lat_dict = {"doubleValue": float(lat)}
+    lat_param = {"name": "lat", "value": lat_dict}
+
+    lng = latlon_dict.get('lng')
+    lng_dict = {"doubleValue": float(lng)}
+    lng_param = {"name": "lat", "value": lng_dict}
+
+    parameters = [lat_dict, lng_dict]
+
 
     response = RDSClient.execute_statement(
         resourceArn=rds_resource_arn,
         secretArn=rds_secret_arn,
         database=database_name,
         sql=sql,
+        parameters=parameters,
         includeResultMetadata=True
     )
 

@@ -4,7 +4,7 @@
   "path": "/path/to/resource",
   "httpMethod": "POST",
   "queryStringParameters": {
-    "q": "4720 S King Dr, Chicago, IL 60615"
+    "q": "60615"
   },
   "pathParameters": {
     "proxy": "path/to/resource"
