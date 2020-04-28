@@ -12,6 +12,7 @@ from typing import Dict, Any
 # From Layers
 from lambda_layer_sqlutilities.parse_utilities import serialize_response
 from lambda_layer_get_secrets.get_aws_secrets import get_secret
+import googlemaps
 
 
 # Initiate a RDS Data API client
@@ -20,6 +21,7 @@ RDSClient = boto3.client('rds-data')
 rds_resource_arn = os.environ['DATABASE_ARN']
 rds_secret_arn = os.environ['DATABASE_SECRET_ARN']
 database_name = os.environ['DATABASE_NAME']
+gmap_secret_arn = os.environ['MAPS_API_KEY']
 
 # This will eventually support all of our contractor search filters!
 sql = """
@@ -121,6 +123,33 @@ def handler(event, context) -> Dict[str, Any]:
     :param context:
     :return:
     """
+
+    if 'q' not in event['queryStringParameteres']:
+        return {
+            'statusCode': 400,
+            'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+            'body': 'Request must include location query string parameter "q"',
+        }
+
+    local = event['queryStringParameters'].get('q')
+
+    secret = get_secret(gmap_secret_arn, 'us-east-2')
+
+
+    api_key = json.loads(secret).get('gmaps_api_key')
+
+
+    gmaps = googlemaps.client.Client(key=api_key)
+
+    # Geocoding an address
+    geocode_result = gmaps.geocode('4720 S King dr')
+
+    latlon_dict = geocode_result[0].get('geometry').get('location')
+    lat = latlon_dict.get('lat')
+    lng = latlon_dict.get('lng')
+
+    print(lat)
+    print(lng)
 
     response = RDSClient.execute_statement(
         resourceArn=rds_resource_arn,
