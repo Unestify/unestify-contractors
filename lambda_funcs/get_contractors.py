@@ -82,7 +82,7 @@ sql = """
            latlon,
            ST_SetSRID(
                ST_MakePoint(:lng, :lat), 4326)
-        )                                           AS distance
+        )/1609                                      AS distance
         
     FROM 
         contractors
