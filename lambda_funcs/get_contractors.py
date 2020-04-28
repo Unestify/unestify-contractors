@@ -78,11 +78,10 @@ sql = """
         count(contractor_ratings.on_time_rating)	AS on_time_rating_count,
         string_agg(DISTINCT(trades.name), ', ')     AS trades_string,
         
-        ST_DISTANCE(
+        ST_DISTANCE_SPHERE(
            latlon,
            ST_SetSRID(
-               ST_MakePoint(:lng, :lat), 4326),
-           use_spheroid := True
+               ST_MakePoint(:lng, :lat), 4326)
         )                                           AS distance
         
     FROM 
@@ -115,11 +114,10 @@ sql = """
         
     WHERE 
         contractors.soft_delete IS false AND 
-        ST_DISTANCE(
+        ST_DISTANCE_SPHERE(
            contractors.latlon,
            ST_SetSRID(
-               ST_MakePoint(:lng, :lat), 4326),
-           use_spheroid := True
+               ST_MakePoint(:lng, :lat), 4326)
     ) <= contractors.service_radius*1609
      
     GROUP BY
