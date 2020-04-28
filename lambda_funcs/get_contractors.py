@@ -157,9 +157,6 @@ def handler(event, context) -> Dict[str, Any]:
 
     geocode_result = gmaps.geocode(locale)
 
-    print(lat)
-    print(lng)
-
     latlon_dict = geocode_result[0].get('geometry').get('location')
     lat = latlon_dict.get('lat')
     lat_dict = {"doubleValue": float(lat)}
