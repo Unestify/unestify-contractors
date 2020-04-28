@@ -131,18 +131,17 @@ def handler(event, context) -> Dict[str, Any]:
             'body': 'Request must include location query string parameter "q"',
         }
 
-    local = event['queryStringParameters'].get('q')
+    locale = event['queryStringParameters'].get('q')
 
     secret = get_secret(gmap_secret_arn, 'us-east-2')
 
 
     api_key = json.loads(secret).get('gmaps_api_key')
 
-
     gmaps = googlemaps.client.Client(key=api_key)
 
     # Geocoding an address
-    geocode_result = gmaps.geocode('4720 S King dr')
+    geocode_result = gmaps.geocode(locale)
 
     latlon_dict = geocode_result[0].get('geometry').get('location')
     lat = latlon_dict.get('lat')
