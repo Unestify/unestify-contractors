@@ -124,7 +124,7 @@ def handler(event, context) -> Dict[str, Any]:
     :return:
     """
 
-    if 'q' not in event['queryStringParameteres']:
+    if 'q' not in event['queryStringParameters']:
         return {
             'statusCode': 400,
             'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
