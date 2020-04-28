@@ -76,7 +76,14 @@ sql = """
             ELSE avg(contractor_ratings.on_time_rating)
         END                                         AS on_time_rating,
         count(contractor_ratings.on_time_rating)	AS on_time_rating_count,
-        string_agg(DISTINCT(trades.name), ', ')     AS trades_string
+        string_agg(DISTINCT(trades.name), ', ')     AS trades_string,
+        
+        ST_DISTANCE(
+           latlon,
+           ST_SetSRID(
+               ST_MakePoint(:lon, :lat), 4326),
+           use_spheroid := True
+        )                                           AS distance
         
     FROM 
         contractors
@@ -107,7 +114,13 @@ sql = """
         trades.id = subtrades.trade_id
         
     WHERE 
-        contractors.soft_delete IS false
+        contractors.soft_delete IS false AND 
+        ST_DISTANCE(
+           contractors.latlon,
+           ST_SetSRID(
+               ST_MakePoint(:lon, :lat), 4326),
+           use_spheroid := True
+    ) <= contractors.service_radius*1609
      
     GROUP BY
         users.id,
