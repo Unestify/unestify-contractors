@@ -34,7 +34,10 @@ Parameters:
     Default: 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-SerializeDataAPIResponse:2'
   GetSecretLayer:
     Type: String
-    Default: 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-GetSecrets:1'
+    Default: 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-GetSecrets:3'
+  GMapsLayer:
+    Type: String
+    Default: 'arn:aws:lambda:us-east-2:316608166692:layer:Unestify-googlemaps:5'
 
 Globals:
   Function:
@@ -104,6 +107,7 @@ Resources:
       Layers:
         - !Ref SQLUtilityLayer
         - !Ref GetSecretLayer
+        - !Ref GMapsLayer
       Environment:
         Variables:
           DATABASE_SECRET_ARN: !Ref RDSSecretArn
