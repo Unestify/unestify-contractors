@@ -81,7 +81,7 @@ sql = """
         ST_DISTANCE(
            latlon,
            ST_SetSRID(
-               ST_MakePoint(:lon, :lat), 4326),
+               ST_MakePoint(:lng, :lat), 4326),
            use_spheroid := True
         )                                           AS distance
         
@@ -118,7 +118,7 @@ sql = """
         ST_DISTANCE(
            contractors.latlon,
            ST_SetSRID(
-               ST_MakePoint(:lon, :lat), 4326),
+               ST_MakePoint(:lng, :lat), 4326),
            use_spheroid := True
     ) <= contractors.service_radius*1609
      
@@ -164,7 +164,7 @@ def handler(event, context) -> Dict[str, Any]:
 
     lng = latlon_dict.get('lng')
     lng_dict = {"doubleValue": float(lng)}
-    lng_param = {"name": "lat", "value": lng_dict}
+    lng_param = {"name": "lng", "value": lng_dict}
 
     parameters = [lat_param, lng_param]
 
