@@ -4,7 +4,7 @@
   "path": "/path/to/resource",
   "httpMethod": "POST",
   "queryStringParameters": {
-    "q": "60615"
+    "q": "4005 W 26th St, Chicago, IL 60623"
   },
   "pathParameters": {
     "proxy": "path/to/resource"

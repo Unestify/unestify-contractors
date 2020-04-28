@@ -118,7 +118,7 @@ sql = """
            contractors.latlon,
            ST_SetSRID(
                ST_MakePoint(:lng, :lat), 4326)
-    ) <= contractors.service_radius*1609
+        ) <= contractors.service_radius*1609
      
     GROUP BY
         users.id,
