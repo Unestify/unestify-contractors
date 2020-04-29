@@ -199,5 +199,9 @@ def handler(event, context) -> Dict[str, Any]:
     return {
                 'statusCode': 200,
                 'body': json.dumps(body),
-                'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                },
     }
