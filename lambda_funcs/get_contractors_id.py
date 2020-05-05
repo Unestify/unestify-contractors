@@ -67,7 +67,7 @@ sql = """
         END                                         AS on_time_rating,
         count(contractor_ratings.on_time_rating)	AS on_time_rating_count,
         
-        string_agg(DISTINCT(trades.name), ', ')     AS trades_string
+        json_agg(DISTINCT(trades.name))             AS trades_string
         
     FROM 
         contractors
